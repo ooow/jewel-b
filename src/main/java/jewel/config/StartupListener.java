@@ -1,7 +1,7 @@
-package com.jewel.job.jobapplication.config;
+package jewel.config;
 
-import com.jewel.job.jobapplication.domain.Ad;
-import com.jewel.job.jobapplication.repository.AdRepository;
+import jewel.domain.Ad;
+import jewel.repository.AdRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;

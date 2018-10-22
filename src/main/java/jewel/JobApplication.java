@@ -1,4 +1,4 @@
-package com.jewel.job.jobapplication;
+package jewel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

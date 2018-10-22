@@ -1,6 +1,6 @@
-package com.jewel.job.jobapplication.repository;
+package jewel.repository;
 
-import com.jewel.job.jobapplication.domain.Ad;
+import jewel.domain.Ad;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.jewel.job.jobapplication.domain;
+package jewel.domain;
 
 import lombok.Builder;
 import lombok.Data;
