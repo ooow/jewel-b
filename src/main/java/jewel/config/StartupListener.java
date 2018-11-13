@@ -26,12 +26,8 @@ public class StartupListener {
     private void addAds() {
         advertRepository.deleteAll();
         log.info("Try add test data.");
-        if (advertRepository.count() > 0) {
-            log.info("Ads are not empty. Skipped.");
-            return;
-        }
         advertRepository.save(Advert.builder()
-                .title("Typical Active Advert")
+                .title("Typical Active Ad")
                 .description("Needs to investigate smth. Please look up.")
                 .isActive(true)
                 .contacts(Advert.Contacts.builder().build())
