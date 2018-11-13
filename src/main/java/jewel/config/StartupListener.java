@@ -33,7 +33,7 @@ public class StartupListener {
         }
         adRepository.save(Ad.builder()
                 .title("Typical Active Ad")
-                .description("Needs to investigate smth. Please look up.")
+                .description("Needs to investigate smth. Please look up.14143")
                 .isActive(true)
                 .contacts(Ad.Contacts.builder().build())
                 .location(Ad.Location.builder().country("CountryName").city("CityName").build())
@@ -42,8 +42,8 @@ public class StartupListener {
                 .settings(Ad.Settings.builder().isRemoved(false).build())
                 .build());
         adRepository.save(Ad.builder()
-                .title("Typical Active Ad")
-                .description("Needs to investigate smth. Please look up.")
+                .title("Typical Active Ad887")
+                .description("Needs to investigate smth. Please look up.1")
                 .isActive(true)
                 .contacts(Ad.Contacts.builder().build())
                 .location(Ad.Location.builder().country("CountryName").city("CityName2").build())
@@ -53,7 +53,7 @@ public class StartupListener {
                 .build());
         adRepository.save(Ad.builder()
                 .title("Tasdalsdadsklad")
-                .description("Needs to investigate smth. Please look up.")
+                .description("Needs to investigate smth. Please look up.5435")
                 .isActive(false)
                 .contacts(Ad.Contacts.builder().build())
                 .location(Ad.Location.builder().country("CountryNam2").city("CityName123").build())
