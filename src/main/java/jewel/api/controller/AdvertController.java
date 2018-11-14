@@ -23,9 +23,9 @@ public class AdvertController {
     }
 
     @GetMapping
-    List<AdvertModel> loadAdverts(@RequestParam(name = "load", required = false) Integer load) {
-        if (Objects.nonNull(load)) {
-            Pageable pageable = PageRequest.of(0, load, Sort.Direction.DESC, "createdAt");
+    List<AdvertModel> getAdverts(@RequestParam(name = "size", required = false) Integer size) {
+        if (Objects.nonNull(size)) {
+            Pageable pageable = PageRequest.of(0, size, Sort.Direction.DESC, "createdAt");
             return toModel(advertRepository.findAll(pageable).getContent());
         }
         return toModel(advertRepository.findAll());

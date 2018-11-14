@@ -32,6 +32,13 @@ public class Advert {
     private Requirements requirements;
     private Settings settings;
 
+    @PostPersist
+    private void postPersist() {
+        if (allNotNull(createdAt, settings) && isNull(settings.autoDeactivateAt)) {
+            settings.setAutoDeactivateAt(createdAt.plusMonths(1));
+        }
+    }
+
     @Data
     @Builder
     public static class Contacts {
@@ -71,12 +78,5 @@ public class Advert {
     @Builder
     public static class Requirements {
         private String experience;
-    }
-
-    @PostPersist
-    private void postPersist() {
-        if (allNotNull(createdAt, settings) && isNull(settings.autoDeactivateAt)) {
-            settings.setAutoDeactivateAt(createdAt.plusMonths(1));
-        }
     }
 }

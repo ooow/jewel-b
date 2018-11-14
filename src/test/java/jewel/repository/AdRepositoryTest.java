@@ -36,6 +36,7 @@ public class AdRepositoryTest {
         assertThat(underTest.findAll()).isEmpty();
     }
 
+
     @Test
     public void saveAll_success() {
         underTest.saveAll(Arrays.asList(
