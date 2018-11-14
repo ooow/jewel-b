@@ -86,7 +86,6 @@ public class AdvertControllerTest {
                 .title(TITLE1)
                 .description(DESCRIPTION)
                 .isActive(IS_ACTIVE)
-                .createdAt(new DateTime())
                 .createdAt(TIME_CREATED)
                 .contacts(Advert.Contacts.builder()
                         .email(EMAIL)
