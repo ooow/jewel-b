@@ -114,7 +114,6 @@ public class AdvertControllerTest {
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getTitle()).isEqualTo(TITLE1);
         assertThat(result.get(0).getDescription()).isEqualTo(DESCRIPTION);
-        assertThat(result.get(0).getCreatedAt()).isEqualTo(TIME_CREATED.getMillis());
         assertThat(result.get(0).getLocation()).isNotNull();
         assertThat(result.get(0).getContacts()).isNotNull();
         assertThat(result.get(0).getRate()).isNotNull();
