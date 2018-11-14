@@ -20,7 +20,7 @@ public class Advert {
     @Id
     private String id;
     private String title;
-    private String photoUrl;
+    private String imageUrl;
     private String description;
     private Boolean isActive;
     @CreatedDate
