@@ -1,7 +1,7 @@
 package jewel.config;
 
-import jewel.domain.Ad;
-import jewel.repository.AdRepository;
+import jewel.domain.Advert;
+import jewel.repository.AdvertRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
@@ -10,10 +10,10 @@ import org.springframework.context.event.EventListener;
 @Slf4j
 @Configuration
 public class StartupListener {
-    private final AdRepository adRepository;
+    private final AdvertRepository advertRepository;
 
-    public StartupListener(AdRepository adRepository) {
-        this.adRepository = adRepository;
+    public StartupListener(AdvertRepository advertRepository) {
+        this.advertRepository = advertRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -21,45 +21,45 @@ public class StartupListener {
         addAds();
     }
 
-    // TODO(gbondarenko): remove after CRUD enabled.
     @Deprecated
+    // TODO(gbondarenko): remove after CRUD enabled.
     private void addAds() {
-        adRepository.deleteAll();
+        advertRepository.deleteAll();
         log.info("Try add test data.");
-        if (adRepository.count() > 0) {
+        if (advertRepository.count() > 0) {
             log.info("Ads are not empty. Skipped.");
             return;
         }
-        adRepository.save(Ad.builder()
-                .title("Typical Active Ad")
+        advertRepository.save(Advert.builder()
+                .title("Typical Active Advert")
                 .description("Needs to investigate smth. Please look up.")
                 .isActive(true)
-                .contacts(Ad.Contacts.builder().build())
-                .location(Ad.Location.builder().country("CountryName").city("CityName").build())
-                .rate(Ad.Rate.builder().isContractual(true).build())
-                .requirements(Ad.Requirements.builder().build())
-                .settings(Ad.Settings.builder().isRemoved(false).build())
+                .contacts(Advert.Contacts.builder().build())
+                .location(Advert.Location.builder().country("CountryName").city("CityName").build())
+                .rate(Advert.Rate.builder().isContractual(true).build())
+                .requirements(Advert.Requirements.builder().build())
+                .settings(Advert.Settings.builder().isRemoved(false).build())
                 .build());
-        adRepository.save(Ad.builder()
-                .title("Typical Active Ad")
+        advertRepository.save(Advert.builder()
+                .title("Typical Active Advert")
                 .description("Needs to investigate smth. Please look up.")
                 .isActive(true)
-                .contacts(Ad.Contacts.builder().build())
-                .location(Ad.Location.builder().country("CountryName").city("CityName2").build())
-                .rate(Ad.Rate.builder().isContractual(false).minRate(2500).maxRate(3500).build())
-                .requirements(Ad.Requirements.builder().build())
-                .settings(Ad.Settings.builder().isRemoved(false).build())
+                .contacts(Advert.Contacts.builder().build())
+                .location(Advert.Location.builder().country("CountryName").city("CityName2").build())
+                .rate(Advert.Rate.builder().isContractual(false).minRate(2500).maxRate(3500).build())
+                .requirements(Advert.Requirements.builder().build())
+                .settings(Advert.Settings.builder().isRemoved(false).build())
                 .build());
-        adRepository.save(Ad.builder()
+        advertRepository.save(Advert.builder()
                 .title("Tasdalsdadsklad")
                 .description("Needs to investigate smth. Please look up.")
                 .isActive(false)
-                .contacts(Ad.Contacts.builder().build())
-                .location(Ad.Location.builder().country("CountryNam2").city("CityName123").build())
-                .rate(Ad.Rate.builder().isContractual(false).currency("USD").fixedRate(7500).build())
-                .requirements(Ad.Requirements.builder().build())
-                .settings(Ad.Settings.builder().isRemoved(true).build())
+                .contacts(Advert.Contacts.builder().build())
+                .location(Advert.Location.builder().country("CountryNam2").city("CityName123").build())
+                .rate(Advert.Rate.builder().isContractual(false).currency("USD").fixedRate(7500).build())
+                .requirements(Advert.Requirements.builder().build())
+                .settings(Advert.Settings.builder().isRemoved(true).build())
                 .build());
-        log.info("Ads added: " + adRepository.count());
+        log.info("Ads added: " + advertRepository.count());
     }
 }
