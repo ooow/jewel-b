@@ -2,6 +2,7 @@ package jewel.api.controller;
 
 import jewel.JobApplication;
 import jewel.api.model.AdvertModel;
+import jewel.config.BeforeSaveListener;
 import jewel.domain.Advert;
 import jewel.repository.AdvertRepository;
 import org.joda.time.DateTime;
@@ -18,7 +19,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = {JobApplication.class, AdvertController.class})
+@ContextConfiguration(classes = {JobApplication.class, AdvertController.class, BeforeSaveListener.class})
 @DataMongoTest
 @RunWith(SpringRunner.class)
 public class AdvertControllerTest {
@@ -65,6 +66,9 @@ public class AdvertControllerTest {
         List<AdvertModel> result = underTest.getAdverts(null);
 
         assertThat(result).hasSize(3);
+        assertThat(result.get(0).getTitle()).isEqualTo(TITLE3);
+        assertThat(result.get(1).getTitle()).isEqualTo(TITLE2);
+        assertThat(result.get(2).getTitle()).isEqualTo(TITLE1);
     }
 
     @Test
@@ -78,15 +82,16 @@ public class AdvertControllerTest {
         List<AdvertModel> result = underTest.getAdverts(2);
 
         assertThat(result).hasSize(2);
+        assertThat(result.get(0).getTitle()).isEqualTo(TITLE3);
+        assertThat(result.get(1).getTitle()).isEqualTo(TITLE2);
     }
 
     @Test
     public void getAdverts_convert() {
-        advertRepository.save(Advert.builder()
+        Advert adv = advertRepository.save(Advert.builder()
                 .title(TITLE1)
                 .description(DESCRIPTION)
                 .isActive(IS_ACTIVE)
-                .createdAt(TIME_CREATED)
                 .contacts(Advert.Contacts.builder()
                         .email(EMAIL)
                         .person(PERSON)
@@ -105,7 +110,6 @@ public class AdvertControllerTest {
                         .build())
                 .settings(Advert.Settings.builder()
                         .isRemoved(IS_REMOVED)
-                        .autoDeactivateAt(TIME_CREATED.plusMonths(1))
                         .build())
                 .build());
 
@@ -118,6 +122,6 @@ public class AdvertControllerTest {
         assertThat(result.get(0).getContacts()).isNotNull();
         assertThat(result.get(0).getRate()).isNotNull();
         assertThat(result.get(0).getSettings()).isNotNull();
-        assertThat(result.get(0).getSettings().getAutoDeactivateAt()).isEqualTo(TIME_CREATED.plusMonths(1).getMillis());
+        assertThat(result.get(0).getSettings().getAutoDeactivateAt()).isEqualTo(adv.getCreatedAt().plusMonths(1).getMillis());
     }
 }

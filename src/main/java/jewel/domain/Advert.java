@@ -6,9 +6,12 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
+import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
 
 import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.ObjectUtils.allNotNull;
@@ -32,12 +35,7 @@ public class Advert {
     private Requirements requirements;
     private Settings settings;
 
-    @PostPersist
-    private void postPersist() {
-        if (allNotNull(createdAt, settings) && isNull(settings.autoDeactivateAt)) {
-            settings.setAutoDeactivateAt(createdAt.plusMonths(1));
-        }
-    }
+
 
     @Data
     @Builder
@@ -78,5 +76,12 @@ public class Advert {
     @Builder
     public static class Requirements {
         private String experience;
+    }
+
+    @PrePersist
+    private void postPersist() {
+        if (allNotNull(createdAt, settings) && isNull(settings.autoDeactivateAt)) {
+            settings.setAutoDeactivateAt(createdAt.plusMonths(1));
+        }
     }
 }

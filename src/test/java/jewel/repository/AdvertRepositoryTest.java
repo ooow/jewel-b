@@ -1,5 +1,7 @@
 package jewel.repository;
 
+import jewel.JobApplication;
+import jewel.config.BeforeSaveListener;
 import jewel.domain.Advert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -17,7 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataMongoTest
 @RunWith(SpringRunner.class)
-public class AdRepositoryTest {
+@ContextConfiguration(classes = {JobApplication.class, BeforeSaveListener.class})
+public class AdvertRepositoryTest {
 
     private static final String TITLE1 = "Title1";
     private static final String TITLE2 = "Title2";
@@ -61,5 +65,14 @@ public class AdRepositoryTest {
         assertThat(ads).hasSize(2);
         assertThat(ads.get(0).getTitle()).isEqualTo(TITLE3);
         assertThat(ads.get(1).getTitle()).isEqualTo(TITLE2);
+    }
+
+    @Test
+    public void save_autoDeactivated() {
+        Advert advert = underTest.save(Advert.builder().title(TITLE1).build());
+
+        assertThat(advert.getId()).isNotBlank();
+        assertThat(advert.getSettings()).isNotNull();
+        assertThat(advert.getSettings().getAutoDeactivateAt()).isNotNull();
     }
 }

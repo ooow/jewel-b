@@ -16,6 +16,7 @@ public class AdvertConverter {
 
     public static AdvertModel toModel(Advert advert) {
         return AdvertModel.builder()
+                .id(advert.getId())
                 .title(advert.getTitle())
                 .description(advert.getDescription())
                 .imageUrl(advert.getImageUrl())
@@ -79,7 +80,7 @@ public class AdvertConverter {
             return AdvertModel.SettingsModel.builder().build();
         }
         return AdvertModel.SettingsModel.builder()
-                .autoDeactivateAt(settings.getAutoDeactivateAt().getMillis())
+//                .autoDeactivateAt(settings.getAutoDeactivateAt().getMillis())
                 .isRemoved(settings.getIsRemoved())
                 .build();
     }
