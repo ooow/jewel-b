@@ -1,8 +1,7 @@
 package jewel.api.controller;
 
-import jewel.api.model.AdModel;
-import jewel.repository.AdRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jewel.api.model.AdvertModel;
+import jewel.repository.AdvertRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,22 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Objects;
 
-import static jewel.api.converter.AdConverter.toModel;
+import static jewel.api.converter.AdvertConverter.toModel;
 
 @RestController("ads")
-public class AdController {
-    private final AdRepository adRepository;
+public class AdvertController {
+    private final AdvertRepository advertRepository;
 
-    public AdController(AdRepository adRepository) {
-        this.adRepository = adRepository;
+    public AdvertController(AdvertRepository advertRepository) {
+        this.advertRepository = advertRepository;
     }
 
     @GetMapping
-    List<AdModel> loadAds(@RequestParam(name = "load", required = false) Integer load) {
+    List<AdvertModel> loadAdverts(@RequestParam(name = "load", required = false) Integer load) {
         if (Objects.nonNull(load)) {
             Pageable pageable = PageRequest.of(0, load, Sort.Direction.DESC, "createdAt");
-            return toModel(adRepository.findAll(pageable).getContent());
+            return toModel(advertRepository.findAll(pageable).getContent());
         }
-        return toModel(adRepository.findAll());
+        return toModel(advertRepository.findAll());
     }
 }

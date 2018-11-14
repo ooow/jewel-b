@@ -1,6 +1,7 @@
 package jewel.repository;
 
-import jewel.domain.Ad;
+import jewel.domain.Advert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,12 @@ public class AdRepositoryTest {
     private static final String TITLE3 = "Title3";
 
     @Autowired
-    private AdRepository underTest;
+    private AdvertRepository underTest;
+
+    @Before
+    public void cleanUp() {
+        underTest.deleteAll();
+    }
 
     @Test
     public void findAll_empty() {
@@ -33,23 +39,23 @@ public class AdRepositoryTest {
     @Test
     public void saveAll_success() {
         underTest.saveAll(Arrays.asList(
-                Ad.builder().title(TITLE1).build(),
-                Ad.builder().title(TITLE2).build(),
-                Ad.builder().title(TITLE3).build()
+                Advert.builder().title(TITLE1).build(),
+                Advert.builder().title(TITLE2).build(),
+                Advert.builder().title(TITLE3).build()
         ));
 
         assertThat(underTest.findAll()).hasSize(3);
     }
 
     @Test
-    public void whenFindByPublicationDate_thenArticles1And2Returned() {
+    public void findAll_pagination() {
         underTest.saveAll(Arrays.asList(
-                Ad.builder().title(TITLE1).build(),
-                Ad.builder().title(TITLE2).build(),
-                Ad.builder().title(TITLE3).build()
+                Advert.builder().title(TITLE1).build(),
+                Advert.builder().title(TITLE2).build(),
+                Advert.builder().title(TITLE3).build()
         ));
 
-        List<Ad> ads = underTest.findAll(PageRequest.of(0, 2, Sort.Direction.DESC, "createdAt")).getContent();
+        List<Advert> ads = underTest.findAll(PageRequest.of(0, 2, Sort.Direction.DESC, "createdAt")).getContent();
 
         assertThat(ads).hasSize(2);
         assertThat(ads.get(0).getTitle()).isEqualTo(TITLE3);

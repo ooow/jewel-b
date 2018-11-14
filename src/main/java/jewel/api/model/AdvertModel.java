@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AdModel {
+public class AdvertModel {
     private String title;
 }
