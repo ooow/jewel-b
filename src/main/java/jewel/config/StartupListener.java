@@ -1,7 +1,7 @@
 package jewel.config;
 
-import jewel.domain.Advert;
 import jewel.repository.AdvertRepository;
+import jewel.repository.domain.Advert;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
@@ -26,15 +26,12 @@ public class StartupListener {
     private void addAds() {
         advertRepository.deleteAll();
         log.info("Try add test data.");
-        if (advertRepository.count() > 0) {
-            log.info("Ads are not empty. Skipped.");
-            return;
-        }
         advertRepository.save(Advert.builder()
-                .title("Typical Active Advert")
+                .title("Typical Active Ad")
                 .description("Needs to investigate smth. Please look up.")
+                .imageUrl("https://dogcentr.ru/wp-content/uploads/2016/10/5-300x206.jpg")
                 .isActive(true)
-                .contacts(Advert.Contacts.builder().build())
+                .contacts(Advert.Contacts.builder().companyId("123").phone("8-800-555-35-35").person("Alice").build())
                 .location(Advert.Location.builder().country("CountryName").city("CityName").build())
                 .rate(Advert.Rate.builder().isContractual(true).build())
                 .requirements(Advert.Requirements.builder().build())
@@ -43,10 +40,11 @@ public class StartupListener {
         advertRepository.save(Advert.builder()
                 .title("Typical Active Advert")
                 .description("Needs to investigate smth. Please look up.")
+                .imageUrl("https://www.telegraph.co.uk/content/dam/women/2016/03/22/woman-postits-desk_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwfSVWeZ_vEN7c6bHu2jJnT8.jpg")
                 .isActive(true)
-                .contacts(Advert.Contacts.builder().build())
+                .contacts(Advert.Contacts.builder().phone("8-800-555-35-35").person("Alice").build())
                 .location(Advert.Location.builder().country("CountryName").city("CityName2").build())
-                .rate(Advert.Rate.builder().isContractual(false).minRate(2500).maxRate(3500).build())
+                .rate(Advert.Rate.builder().isContractual(false).minRate(2500).maxRate(3500).currency("PLN").build())
                 .requirements(Advert.Requirements.builder().build())
                 .settings(Advert.Settings.builder().isRemoved(false).build())
                 .build());
@@ -54,7 +52,8 @@ public class StartupListener {
                 .title("Tasdalsdadsklad")
                 .description("Needs to investigate smth. Please look up.")
                 .isActive(false)
-                .contacts(Advert.Contacts.builder().build())
+                .imageUrl("https://amansquest.com/wp-content/uploads/2017/10/portrait-young-man-sitting-his-desk-hard-working-man-ss-feature.jpg")
+                .contacts(Advert.Contacts.builder().phone("8-800-555-35-35").person("Alice").build())
                 .location(Advert.Location.builder().country("CountryNam2").city("CityName123").build())
                 .rate(Advert.Rate.builder().isContractual(false).currency("USD").fixedRate(7500).build())
                 .requirements(Advert.Requirements.builder().build())
