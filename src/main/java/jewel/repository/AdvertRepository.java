@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface AdvertRepository extends MongoRepository<Advert, String> {
 
-    Page<Advert> findAll(Pageable pageable);
+    Page<Advert> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
     List<Advert> findAllByOrderByCreatedAtDesc();
 }
