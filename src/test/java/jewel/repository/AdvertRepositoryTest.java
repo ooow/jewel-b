@@ -1,7 +1,7 @@
 package jewel.repository;
 
 import jewel.JobApplication;
-import jewel.config.BeforeSaveListener;
+import jewel.config.MongoConfiguration;
 import jewel.domain.Advert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataMongoTest
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {JobApplication.class, BeforeSaveListener.class})
+@ContextConfiguration(classes = {JobApplication.class, MongoConfiguration.class})
 public class AdvertRepositoryTest {
 
     private static final String TITLE1 = "Title1";
@@ -65,14 +65,5 @@ public class AdvertRepositoryTest {
         assertThat(ads).hasSize(2);
         assertThat(ads.get(0).getTitle()).isEqualTo(TITLE3);
         assertThat(ads.get(1).getTitle()).isEqualTo(TITLE2);
-    }
-
-    @Test
-    public void save_autoDeactivated() {
-        Advert advert = underTest.save(Advert.builder().title(TITLE1).build());
-
-        assertThat(advert.getId()).isNotBlank();
-        assertThat(advert.getSettings()).isNotNull();
-        assertThat(advert.getSettings().getAutoDeactivateAt()).isNotNull();
     }
 }

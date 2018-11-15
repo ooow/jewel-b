@@ -31,6 +31,8 @@ public class AdvertController {
             Pageable pageable = PageRequest.of(0, size, Sort.Direction.DESC, "createdAt");
             return toModel(advertRepository.findAll(pageable).getContent());
         }
-        return toModel(advertRepository.findAll().stream().sorted(Comparator.comparing(Advert::getCreatedAt).reversed()).collect(Collectors.toList()));
+        return toModel(advertRepository.findAll().stream()
+                .sorted(Comparator.comparing(Advert::getCreatedAt).reversed())
+                .collect(Collectors.toList()));
     }
 }

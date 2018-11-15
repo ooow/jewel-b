@@ -21,7 +21,8 @@ public class AdvertConverter {
                 .description(advert.getDescription())
                 .imageUrl(advert.getImageUrl())
                 .isActive(advert.getIsActive())
-                .createdAt(advert.getCreatedAt().getMillis())
+                .createdAt((isNull(advert.getCreatedAt()) ? null :
+                        advert.getCreatedAt().getMillis()))
                 .contacts(toModel(advert.getContacts()))
                 .location(toModel(advert.getLocation()))
                 .rate(toModel(advert.getRate()))
@@ -80,7 +81,8 @@ public class AdvertConverter {
             return AdvertModel.SettingsModel.builder().build();
         }
         return AdvertModel.SettingsModel.builder()
-//                .autoDeactivateAt(settings.getAutoDeactivateAt().getMillis())
+                .autoDeactivateAt(isNull(settings.getAutoDeactivateAt()) ? null :
+                        settings.getAutoDeactivateAt().getMillis())
                 .isRemoved(settings.getIsRemoved())
                 .build();
     }

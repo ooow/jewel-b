@@ -6,12 +6,9 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
-import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.PostPersist;
-import javax.persistence.PrePersist;
 
 import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.ObjectUtils.allNotNull;
@@ -29,37 +26,18 @@ public class Advert {
     @CreatedDate
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private DateTime createdAt;
-    private Contacts contacts;
-    private Location location;
     private Rate rate;
+    private Location location;
     private Requirements requirements;
+    private Contacts contacts;
     private Settings settings;
 
-
-
-    @Data
-    @Builder
-    public static class Contacts {
-        private String email;
-        private String person;
-        private String phone;
-        private String userId;
-        private String companyId;
-    }
-
-    @Data
-    @Builder
-    public static class Location {
-        private String country;
-        private String city;
-    }
-
-    @Data
-    @Builder
-    public static class Settings {
-        private Boolean isRemoved;
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-        private DateTime autoDeactivateAt;
+    @PostPersist
+    private void postPersist() {
+        //TODO(gbondarenko): Try to find out the way call postPersist on Mongo entity.
+        if (allNotNull(createdAt, settings) && isNull(settings.autoDeactivateAt)) {
+            settings.setAutoDeactivateAt(createdAt.plusMonths(1));
+        }
     }
 
     @Data
@@ -74,14 +52,32 @@ public class Advert {
 
     @Data
     @Builder
+    public static class Location {
+        private String country;
+        private String city;
+    }
+
+    @Data
+    @Builder
     public static class Requirements {
         private String experience;
     }
 
-    @PrePersist
-    private void postPersist() {
-        if (allNotNull(createdAt, settings) && isNull(settings.autoDeactivateAt)) {
-            settings.setAutoDeactivateAt(createdAt.plusMonths(1));
-        }
+    @Data
+    @Builder
+    public static class Contacts {
+        private String email;
+        private String person;
+        private String phone;
+        private String userId;
+        private String companyId;
+    }
+
+    @Data
+    @Builder
+    public static class Settings {
+        private Boolean isRemoved;
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        private DateTime autoDeactivateAt;
     }
 }

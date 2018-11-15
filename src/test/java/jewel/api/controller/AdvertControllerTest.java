@@ -2,10 +2,9 @@ package jewel.api.controller;
 
 import jewel.JobApplication;
 import jewel.api.model.AdvertModel;
-import jewel.config.BeforeSaveListener;
+import jewel.config.MongoConfiguration;
 import jewel.domain.Advert;
 import jewel.repository.AdvertRepository;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,18 +18,16 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = {JobApplication.class, AdvertController.class, BeforeSaveListener.class})
 @DataMongoTest
 @RunWith(SpringRunner.class)
+@ContextConfiguration(classes = {JobApplication.class, AdvertController.class, MongoConfiguration.class})
 public class AdvertControllerTest {
 
     private static final String TITLE1 = "Title1";
     private static final String TITLE2 = "Title2";
     private static final String TITLE3 = "Title3";
     private static final String DESCRIPTION = "Description";
-    private static final Boolean IS_ACTIVE = Boolean.FALSE;
-    private static final DateTime TIME_CREATED = new DateTime(2018, 12, 28, 0, 1);
-    // rate
+    private static final Boolean IS_ACTIVE = Boolean.FALSE;// rate
     private static final Boolean IS_CONTRACTUAL = Boolean.FALSE;
     private static final String CURRENCY = "USD";
     private static final Integer FIXED_RATE = 123123;
@@ -84,44 +81,5 @@ public class AdvertControllerTest {
         assertThat(result).hasSize(2);
         assertThat(result.get(0).getTitle()).isEqualTo(TITLE3);
         assertThat(result.get(1).getTitle()).isEqualTo(TITLE2);
-    }
-
-    @Test
-    public void getAdverts_convert() {
-        Advert adv = advertRepository.save(Advert.builder()
-                .title(TITLE1)
-                .description(DESCRIPTION)
-                .isActive(IS_ACTIVE)
-                .contacts(Advert.Contacts.builder()
-                        .email(EMAIL)
-                        .person(PERSON)
-                        .build())
-                .location(Advert.Location.builder()
-                        .country(COUNTRY)
-                        .city(CITY)
-                        .build())
-                .rate(Advert.Rate.builder()
-                        .isContractual(IS_CONTRACTUAL)
-                        .fixedRate(FIXED_RATE)
-                        .currency(CURRENCY)
-                        .build())
-                .requirements(Advert.Requirements.builder()
-                        .experience(EXP)
-                        .build())
-                .settings(Advert.Settings.builder()
-                        .isRemoved(IS_REMOVED)
-                        .build())
-                .build());
-
-        List<AdvertModel> result = underTest.getAdverts(null);
-
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0).getTitle()).isEqualTo(TITLE1);
-        assertThat(result.get(0).getDescription()).isEqualTo(DESCRIPTION);
-        assertThat(result.get(0).getLocation()).isNotNull();
-        assertThat(result.get(0).getContacts()).isNotNull();
-        assertThat(result.get(0).getRate()).isNotNull();
-        assertThat(result.get(0).getSettings()).isNotNull();
-        assertThat(result.get(0).getSettings().getAutoDeactivateAt()).isEqualTo(adv.getCreatedAt().plusMonths(1).getMillis());
     }
 }
