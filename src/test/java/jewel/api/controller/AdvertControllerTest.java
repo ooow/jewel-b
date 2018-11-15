@@ -26,21 +26,6 @@ public class AdvertControllerTest {
     private static final String TITLE1 = "Title1";
     private static final String TITLE2 = "Title2";
     private static final String TITLE3 = "Title3";
-    private static final String DESCRIPTION = "Description";
-    private static final Boolean IS_ACTIVE = Boolean.FALSE;// rate
-    private static final Boolean IS_CONTRACTUAL = Boolean.FALSE;
-    private static final String CURRENCY = "USD";
-    private static final Integer FIXED_RATE = 123123;
-    // contact
-    private static final String PERSON = "Person";
-    private static final String EMAIL = "asdasd@mail.net";
-    // location
-    private static final String COUNTRY = "Country";
-    private static final String CITY = "City";
-    // requirements
-    private static final String EXP = "expirience";
-    // settings
-    private static final Boolean IS_REMOVED = Boolean.TRUE;
 
     @Autowired
     private AdvertRepository advertRepository;
