@@ -1,7 +1,7 @@
 package jewel.api.converter;
 
 import jewel.api.model.AdvertModel;
-import jewel.domain.Advert;
+import jewel.repository.domain.Advert;
 import org.joda.time.DateTime;
 import org.junit.Test;
 

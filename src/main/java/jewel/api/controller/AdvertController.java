@@ -1,7 +1,7 @@
 package jewel.api.controller;
 
+import jewel.api.converter.AdvertConverter;
 import jewel.api.model.AdvertModel;
-import jewel.domain.Advert;
 import jewel.repository.AdvertRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-import static jewel.api.converter.AdvertConverter.toModel;
+import static java.util.Objects.nonNull;
 
 @RestController("ads")
 public class AdvertController {
@@ -27,11 +24,10 @@ public class AdvertController {
 
     @GetMapping
     List<AdvertModel> getAdverts(@RequestParam(name = "size", required = false) Integer size) {
-        if (Objects.nonNull(size)) {
+        if (nonNull(size)) {
             Pageable pageable = PageRequest.of(0, size, Sort.Direction.DESC, "createdAt");
-            return toModel(advertRepository.findAll(pageable).getContent());
-           // return toModel(advertRepository.getTop(size));
+            return AdvertConverter.toModel(advertRepository.findAll(pageable).getContent());
         }
-        return toModel(advertRepository.findAllByOrderByCreatedAtDesc());
+        return AdvertConverter.toModel(advertRepository.findAllByOrderByCreatedAtDesc());
     }
 }

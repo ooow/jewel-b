@@ -2,7 +2,7 @@ package jewel.repository;
 
 import jewel.JobApplication;
 import jewel.config.MongoConfiguration;
-import jewel.domain.Advert;
+import jewel.repository.domain.Advert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

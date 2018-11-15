@@ -3,7 +3,7 @@ package jewel.api.controller;
 import jewel.JobApplication;
 import jewel.api.model.AdvertModel;
 import jewel.config.MongoConfiguration;
-import jewel.domain.Advert;
+import jewel.repository.domain.Advert;
 import jewel.repository.AdvertRepository;
 import org.junit.Before;
 import org.junit.Test;

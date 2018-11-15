@@ -1,13 +1,12 @@
 package jewel.api.converter;
 
 import jewel.api.model.AdvertModel;
-import jewel.domain.Advert;
+import jewel.repository.domain.Advert;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
-import static java.util.stream.StreamSupport.stream;
+import static org.jooq.lambda.Seq.seq;
 
 public class AdvertConverter {
 
@@ -88,8 +87,8 @@ public class AdvertConverter {
     }
 
     public static List<AdvertModel> toModel(Iterable<Advert> adverts) {
-        return stream(adverts.spliterator(), false)
+        return seq(adverts)
                 .map(AdvertConverter::toModel)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

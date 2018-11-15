@@ -1,4 +1,4 @@
-package jewel.domain;
+package jewel.repository.domain;
 
 import lombok.Builder;
 import lombok.Data;
