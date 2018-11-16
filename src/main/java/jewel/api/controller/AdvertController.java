@@ -1,5 +1,7 @@
 package jewel.api.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import jewel.api.converter.AdvertConverter;
 import jewel.api.model.AdvertModel;
 import jewel.exception.NotFoundException;
@@ -32,7 +34,8 @@ public class AdvertController {
     }
 
     @GetMapping
-    List<AdvertModel> getAdverts(@RequestParam(name = "size", required = false) Integer size) {
+    @ApiOperation("Get all adverts sorted by time of creation.")
+    List<AdvertModel> getAdverts(@ApiParam("Optional size of result list.") @RequestParam(name = "size", required = false) Integer size) {
         if (nonNull(size)) {
             return AdvertConverter.toModel(advertRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, size)).getContent());
         }
@@ -40,6 +43,7 @@ public class AdvertController {
     }
 
     @DeleteMapping("/{advertId}")
+    @ApiOperation("Delete advert using id.")
     void deleteAdvert(@PathVariable("advertId") String advertId) {
         Advert advert = advertRepository.findById(advertId).orElseThrow(NotFoundException::new);
         advertRepository.delete(advert);
