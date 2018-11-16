@@ -81,7 +81,8 @@ public class Advert {
     @Builder
     public static class Settings {
         /**
-         * @deprecated Since ArchivedRepository introducing to store removed Adverts.
+         * @see jewel.repository.ArchivedAdvertRepository
+         * @deprecated Since ArchivedAdvertRepository introducing to store removed Adverts.
          */
         @Deprecated
         private Boolean isRemoved;

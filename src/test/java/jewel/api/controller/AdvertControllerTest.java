@@ -3,6 +3,7 @@ package jewel.api.controller;
 import jewel.JobApplication;
 import jewel.api.model.AdvertModel;
 import jewel.config.MongoConfiguration;
+import jewel.exception.NotFoundException;
 import jewel.repository.AdvertRepository;
 import jewel.repository.ArchivedAdvertRepository;
 import jewel.repository.domain.Advert;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataMongoTest
 @RunWith(SpringRunner.class)
@@ -86,11 +88,12 @@ public class AdvertControllerTest {
 
     @Test
     public void deleteAdvert_throws() throws Exception {
-//        Throwable exception = assertThrows(
-//                IllegalArgumentException.class,
-//                () -> {
-//                    throw new IllegalArgumentException("Exception message");
-//                }
-//        );
+        assertThrows(
+                NotFoundException.class,
+                () -> {
+                    underTest.deleteAdvert("123");
+                    ;
+                }
+        );
     }
 }
