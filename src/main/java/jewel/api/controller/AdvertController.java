@@ -12,7 +12,9 @@ import jewel.repository.domain.ArchivedAdvert;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +42,15 @@ public class AdvertController {
             return AdvertConverter.toModel(advertRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, size)).getContent());
         }
         return AdvertConverter.toModel(advertRepository.findAllByOrderByCreatedAtDesc());
+    }
+
+    @PatchMapping
+    @ApiOperation("Create or update advert.")
+    void patchAdvert(@RequestBody AdvertModel advertModel) {
+        if (nonNull(advertModel.getId())) {
+            advertRepository.findById(advertModel.getId()).orElseThrow(NotFoundException::new);
+        }
+        advertRepository.save(AdvertConverter.toDomain(advertModel));
     }
 
     @DeleteMapping("/{advertId}")

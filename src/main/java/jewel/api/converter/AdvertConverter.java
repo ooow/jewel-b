@@ -2,6 +2,8 @@ package jewel.api.converter;
 
 import jewel.api.model.AdvertModel;
 import jewel.repository.domain.Advert;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.List;
 
@@ -89,5 +91,77 @@ public class AdvertConverter {
         return seq(adverts)
                 .map(AdvertConverter::toModel)
                 .toList();
+    }
+
+    public static Advert toDomain(AdvertModel advertModel) {
+        return Advert.builder()
+                .id(advertModel.getId())
+                .title(advertModel.getTitle())
+                .description(advertModel.getDescription())
+                .imageUrl(advertModel.getImageUrl())
+                .isActive(advertModel.getIsActive())
+//                .createdAt((isNull(advertModel.getCreatedAt()) ? null :
+//                        new DateTime(advertModel.getCreatedAt(), DateTimeZone.UTC)))
+                .contacts(toDomain(advertModel.getContacts()))
+                .location(toDomain(advertModel.getLocation()))
+                .rate(toDomain(advertModel.getRate()))
+                .requirements(toDomain(advertModel.getRequirements()))
+                .settings(toDomain(advertModel.getSettings()))
+                .build();
+    }
+
+    private static Advert.Contacts toDomain(AdvertModel.ContactsModel contacts) {
+        if (isNull(contacts)) {
+            return Advert.Contacts.builder().build();
+        }
+        return Advert.Contacts.builder()
+                .userId(contacts.getUserId())
+                .companyId(contacts.getCompanyId())
+                .email(contacts.getEmail())
+                .person(contacts.getPerson())
+                .phone(contacts.getPhone())
+                .build();
+    }
+
+    private static Advert.Location toDomain(AdvertModel.LocationModel location) {
+        if (isNull(location)) {
+            return Advert.Location.builder().build();
+        }
+        return Advert.Location.builder()
+                .country(location.getCountry())
+                .city(location.getCity())
+                .build();
+    }
+
+    private static Advert.Rate toDomain(AdvertModel.RateModel rate) {
+        if (isNull(rate)) {
+            return Advert.Rate.builder().build();
+        }
+        return Advert.Rate.builder()
+                .isContractual(rate.getIsContractual())
+                .fixedRate(rate.getFixedRate())
+                .maxRate(rate.getMaxRate())
+                .minRate(rate.getMinRate())
+                .currency(rate.getCurrency())
+                .build();
+    }
+
+    private static Advert.Requirements toDomain(AdvertModel.RequirementsModel requirements) {
+        if (isNull(requirements)) {
+            return Advert.Requirements.builder().build();
+        }
+        return Advert.Requirements.builder()
+                .experience(requirements.getExperience())
+                .build();
+    }
+
+    private static Advert.Settings toDomain(AdvertModel.SettingsModel settings) {
+        if (isNull(settings)) {
+            return Advert.Settings.builder().build();
+        }
+        return Advert.Settings.builder()
+//                .autoDeactivateAt(isNull(settings.getAutoDeactivateAt()) ? null :
+//                        new DateTime(settings.getAutoDeactivateAt(), DateTimeZone.UTC))
+                .build();
     }
 }
