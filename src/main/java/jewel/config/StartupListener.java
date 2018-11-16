@@ -35,7 +35,7 @@ public class StartupListener {
                 .location(Advert.Location.builder().country("CountryName").city("CityName").build())
                 .rate(Advert.Rate.builder().isContractual(true).build())
                 .requirements(Advert.Requirements.builder().build())
-                .settings(Advert.Settings.builder().isRemoved(false).build())
+                .settings(Advert.Settings.builder().build())
                 .build());
         advertRepository.save(Advert.builder()
                 .title("Typical Active Advert")
@@ -46,7 +46,7 @@ public class StartupListener {
                 .location(Advert.Location.builder().country("CountryName").city("CityName2").build())
                 .rate(Advert.Rate.builder().isContractual(false).minRate(2500).maxRate(3500).currency("PLN").build())
                 .requirements(Advert.Requirements.builder().build())
-                .settings(Advert.Settings.builder().isRemoved(false).build())
+                .settings(Advert.Settings.builder().build())
                 .build());
         advertRepository.save(Advert.builder()
                 .title("Tasdalsdadsklad")
@@ -57,7 +57,7 @@ public class StartupListener {
                 .location(Advert.Location.builder().country("CountryNam2").city("CityName123").build())
                 .rate(Advert.Rate.builder().isContractual(false).currency("USD").fixedRate(7500).build())
                 .requirements(Advert.Requirements.builder().build())
-                .settings(Advert.Settings.builder().isRemoved(true).build())
+                .settings(Advert.Settings.builder().build())
                 .build());
         log.info("Ads added: " + advertRepository.count());
     }

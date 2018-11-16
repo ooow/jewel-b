@@ -32,8 +32,6 @@ public class AdvertConverterTest {
     private static final String COMPANY_ID = "company123";
     private static final String USER_ID = "asdasdUser";
     private static final String PHONE = "+498-450-6712";
-    // settings
-    private static final Boolean IS_REMOVED = Boolean.TRUE;
 
     @Test
     public void toModel_fullEntity() {
@@ -66,7 +64,6 @@ public class AdvertConverterTest {
                         .person(PERSON)
                         .build())
                 .settings(Advert.Settings.builder()
-                        .isRemoved(IS_REMOVED)
                         .build())
                 .build();
 
@@ -102,6 +99,5 @@ public class AdvertConverterTest {
         assertThat(advert.getContacts().getUserId()).isEqualTo(USER_ID);
         // settings
         assertThat(advert.getSettings()).isNotNull();
-        assertThat(advert.getSettings().getIsRemoved()).isEqualTo(IS_REMOVED);
     }
 }
