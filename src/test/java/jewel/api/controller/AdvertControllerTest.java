@@ -29,6 +29,7 @@ public class AdvertControllerTest {
     private static final String TITLE1 = "Title1";
     private static final String TITLE2 = "Title2";
     private static final String TITLE3 = "Title3";
+    private static final String BROKEN_ID = "123";
 
     @Autowired
     private AdvertRepository advertRepository;
@@ -87,13 +88,10 @@ public class AdvertControllerTest {
     }
 
     @Test
-    public void deleteAdvert_throws() throws Exception {
+    public void deleteAdvert_throws() {
         assertThrows(
                 NotFoundException.class,
-                () -> {
-                    underTest.deleteAdvert("123");
-                    ;
-                }
+                () -> underTest.deleteAdvert(BROKEN_ID)
         );
     }
 }
