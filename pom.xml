@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jewel.app</groupId>
+    <groupId>jewel</groupId>
     <artifactId>jewel-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>job-application</name>
-    <description>jewel-app</description>
+    <name>jewel-application</name>
+    <description>Backend for Jewel Application</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -20,6 +20,7 @@
     </parent>
 
     <properties>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
         <java.version>1.8</java.version>
         <javax.persistance.version>2.2</javax.persistance.version>
         <jool.version>0.9.14</jool.version>
@@ -64,7 +65,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <!-- Test -->
         <dependency>
