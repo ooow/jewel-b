@@ -4,6 +4,7 @@ import jewel.JobApplication;
 import jewel.api.model.AdvertModel;
 import jewel.config.MongoConfiguration;
 import jewel.repository.AdvertRepository;
+import jewel.repository.ArchivedAdvertRepository;
 import jewel.repository.domain.Advert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +31,14 @@ public class AdvertControllerTest {
     @Autowired
     private AdvertRepository advertRepository;
     @Autowired
+    private ArchivedAdvertRepository archivedAdvertRepository;
+    @Autowired
     private AdvertController underTest;
 
     @Before
     public void cleanUp() {
         advertRepository.deleteAll();
+        archivedAdvertRepository.deleteAll();
     }
 
     @Test
@@ -66,5 +70,27 @@ public class AdvertControllerTest {
         assertThat(result).hasSize(2);
         assertThat(result.get(0).getTitle()).isEqualTo(TITLE3);
         assertThat(result.get(1).getTitle()).isEqualTo(TITLE2);
+    }
+
+    @Test
+    public void deleteAdvert_archived() {
+        Advert advert = advertRepository.save(Advert.builder().title(TITLE1).build());
+
+        underTest.deleteAdvert(advert.getId());
+
+        assertThat(advertRepository.findAll()).isEmpty();
+        assertThat(archivedAdvertRepository.findAll()).hasSize(1);
+        assertThat(archivedAdvertRepository.findAll().get(0).getId()).isEqualTo(advert.getId());
+        assertThat(archivedAdvertRepository.findAll().get(0).getTitle()).isEqualTo(TITLE1);
+    }
+
+    @Test
+    public void deleteAdvert_throws() throws Exception {
+//        Throwable exception = assertThrows(
+//                IllegalArgumentException.class,
+//                () -> {
+//                    throw new IllegalArgumentException("Exception message");
+//                }
+//        );
     }
 }

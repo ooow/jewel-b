@@ -1,7 +1,9 @@
 package jewel.repository.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -16,6 +18,8 @@ import static org.apache.commons.lang3.ObjectUtils.allNotNull;
 @Data
 @Builder
 @Document
+@NoArgsConstructor
+@AllArgsConstructor
 public class Advert {
     @Id
     private String id;
@@ -76,6 +80,10 @@ public class Advert {
     @Data
     @Builder
     public static class Settings {
+        /**
+         * @deprecated Since ArchivedRepository introducing to store removed Adverts.
+         */
+        @Deprecated
         private Boolean isRemoved;
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         private DateTime autoDeactivateAt;
