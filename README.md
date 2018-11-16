@@ -38,3 +38,5 @@ Use following values as configuration:
 ```
         mvn spring-boot:run
 ```
+## Swagger UI
+Is available after deploy at **localhost:8080/swagger-ui.html**
