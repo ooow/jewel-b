@@ -30,7 +30,11 @@ public class ArchivedAdvert extends Advert {
                 .createdAt(advert.getCreatedAt())
                 .imageUrl(advert.getImageUrl())
                 .isActive(advert.getIsActive())
-                // TODO(gbondarenko): Add additional fields of Advert to Archive once required.
+                .rate(advert.getRate())
+                .location(advert.getLocation())
+                .contacts(advert.getContacts())
+                .requirements(advert.getRequirements())
+                .settings(advert.getSettings())
                 .build();
     }
 }

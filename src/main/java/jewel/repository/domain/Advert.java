@@ -80,12 +80,6 @@ public class Advert {
     @Data
     @Builder
     public static class Settings {
-        /**
-         * @see jewel.repository.ArchivedAdvertRepository
-         * @deprecated Since ArchivedAdvertRepository introducing to store removed Adverts.
-         */
-        @Deprecated
-        private Boolean isRemoved;
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         private DateTime autoDeactivateAt;
     }

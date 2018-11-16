@@ -82,7 +82,6 @@ public class AdvertConverter {
         return AdvertModel.SettingsModel.builder()
                 .autoDeactivateAt(isNull(settings.getAutoDeactivateAt()) ? null :
                         settings.getAutoDeactivateAt().getMillis())
-                .isRemoved(settings.getIsRemoved())
                 .build();
     }
 

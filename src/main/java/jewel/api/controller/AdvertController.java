@@ -43,6 +43,6 @@ public class AdvertController {
     void deleteAdvert(@PathVariable("advertId") String advertId) {
         Advert advert = advertRepository.findById(advertId).orElseThrow(NotFoundException::new);
         advertRepository.delete(advert);
-        archivedAdvertRepository.save((ArchivedAdvert.of(advert)));
+        archivedAdvertRepository.save(ArchivedAdvert.of(advert));
     }
 }
