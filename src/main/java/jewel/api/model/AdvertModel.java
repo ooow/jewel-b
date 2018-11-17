@@ -1,8 +1,8 @@
 package jewel.api.model;
 
-import lombok.AllArgsConstructor;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "Represents Advert information.")
-public class AdvertModel {
+public class AdvertModel implements Serializable {
     private String id;
     @NotEmpty
     private String title;
@@ -26,10 +26,15 @@ public class AdvertModel {
     @ApiModelProperty("Active advert is visible for everyone.")
     private Boolean isActive;
     private Long createdAt;
+    @NotNull
     private ContactsModel contacts;
+    @NotNull
     private LocationModel location;
+    @NotNull
     private RateModel rate;
+    @NotNull
     private RequirementsModel requirements;
+    @NotNull
     private SettingsModel settings;
 
     @Data
@@ -37,7 +42,7 @@ public class AdvertModel {
     @AllArgsConstructor
     @NoArgsConstructor
     @ApiModel(description = "Contact information.")
-    public static class ContactsModel {
+    public static class ContactsModel implements Serializable {
         private String email;
         private String person;
         private String phone;
@@ -49,17 +54,11 @@ public class AdvertModel {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class LocationModel {
+    public static class LocationModel implements Serializable {
+        @NotEmpty
         private String country;
+        @NotEmpty
         private String city;
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class SettingsModel {
-        private Long autoDeactivateAt;
     }
 
     @Data
@@ -79,7 +78,15 @@ public class AdvertModel {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class RequirementsModel {
+    public static class RequirementsModel implements Serializable {
         private String experience;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SettingsModel implements Serializable {
+        private Long autoDeactivateAt;
     }
 }

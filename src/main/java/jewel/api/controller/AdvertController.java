@@ -46,11 +46,11 @@ public class AdvertController {
 
     @PatchMapping
     @ApiOperation("Create or update advert.")
-    void patchAdvert(@RequestBody AdvertModel advertModel) {
+    AdvertModel patchAdvert(@RequestBody AdvertModel advertModel) {
         if (nonNull(advertModel.getId())) {
             advertRepository.findById(advertModel.getId()).orElseThrow(NotFoundException::new);
         }
-        advertRepository.save(AdvertConverter.toDomain(advertModel));
+        return AdvertConverter.toModel(advertRepository.save(AdvertConverter.toDomain(advertModel)));
     }
 
     @DeleteMapping("/{advertId}")
