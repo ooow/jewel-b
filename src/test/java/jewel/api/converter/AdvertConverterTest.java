@@ -77,6 +77,73 @@ public class AdvertConverterTest {
         assertThat(advertModel.getIsActive()).isEqualTo(IS_ACTIVE);
         assertThat(advertModel.getCreatedAt()).isEqualTo(CREATED_DATE.getMillis());
         // rate
+        assertThat(advertModel.getRate()).isNotNull();
+        assertThat(advertModel.getRate().getIsContractual()).isEqualTo(IS_CONTRACTUAL);
+        assertThat(advertModel.getRate().getCurrency()).isEqualTo(CURRENCY);
+        assertThat(advertModel.getRate().getFixedRate()).isEqualTo(FIXED_RATE);
+        assertThat(advertModel.getRate().getMaxRate()).isEqualTo(MAX_RATE);
+        assertThat(advertModel.getRate().getMinRate()).isEqualTo(MIN_RATE);
+        // location
+        assertThat(advertModel.getLocation()).isNotNull();
+        assertThat(advertModel.getLocation().getCountry()).isEqualTo(COUNTRY);
+        assertThat(advertModel.getLocation().getCity()).isEqualTo(CITY);
+        // requirements
+        assertThat(advertModel.getRequirements()).isNotNull();
+        assertThat(advertModel.getRequirements().getExperience()).isEqualTo(EXP);
+        // contacts
+        assertThat(advertModel.getContacts()).isNotNull();
+        assertThat(advertModel.getContacts().getCompanyId()).isEqualTo(COMPANY_ID);
+        assertThat(advertModel.getContacts().getEmail()).isEqualTo(EMAIL);
+        assertThat(advertModel.getContacts().getPerson()).isEqualTo(PERSON);
+        assertThat(advertModel.getContacts().getPhone()).isEqualTo(PHONE);
+        assertThat(advertModel.getContacts().getUserId()).isEqualTo(USER_ID);
+        // settings
+        assertThat(advertModel.getSettings()).isNotNull();
+    }
+
+    @Test
+    public void toDomain_fullEntity() {
+        AdvertModel advertModel = AdvertModel.builder()
+                .id(ID)
+                .title(TITLE1)
+                .description(DESCRIPTION)
+                .isActive(IS_ACTIVE)
+                .createdAt(CREATED_DATE.getMillis())
+                .imageUrl(IMAGE_URL)
+                .rate(AdvertModel.RateModel.builder()
+                        .isContractual(IS_CONTRACTUAL)
+                        .fixedRate(FIXED_RATE)
+                        .maxRate(MAX_RATE)
+                        .minRate(MIN_RATE)
+                        .currency(CURRENCY)
+                        .build())
+                .location(AdvertModel.LocationModel.builder()
+                        .country(COUNTRY)
+                        .city(CITY)
+                        .build())
+                .requirements(AdvertModel.RequirementsModel.builder()
+                        .experience(EXP)
+                        .build())
+                .contacts(AdvertModel.ContactsModel.builder()
+                        .email(EMAIL)
+                        .companyId(COMPANY_ID)
+                        .phone(PHONE)
+                        .userId(USER_ID)
+                        .person(PERSON)
+                        .build())
+                .settings(AdvertModel.SettingsModel.builder()
+                        .build())
+                .build();
+
+        Advert advert = AdvertConverter.toDomain(advertModel);
+
+        assertThat(advert).isNotNull();
+        assertThat(advert.getId()).isEqualTo(ID);
+        assertThat(advert.getTitle()).isEqualTo(TITLE1);
+        assertThat(advert.getImageUrl()).isEqualTo(IMAGE_URL);
+        assertThat(advert.getDescription()).isEqualTo(DESCRIPTION);
+        assertThat(advert.getIsActive()).isEqualTo(IS_ACTIVE);
+        // rate
         assertThat(advert.getRate()).isNotNull();
         assertThat(advert.getRate().getIsContractual()).isEqualTo(IS_CONTRACTUAL);
         assertThat(advert.getRate().getCurrency()).isEqualTo(CURRENCY);
