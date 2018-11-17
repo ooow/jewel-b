@@ -2,8 +2,6 @@ package jewel.api.converter;
 
 import jewel.api.model.AdvertModel;
 import jewel.repository.domain.Advert;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import java.util.List;
 
@@ -100,6 +98,7 @@ public class AdvertConverter {
                 .description(advertModel.getDescription())
                 .imageUrl(advertModel.getImageUrl())
                 .isActive(advertModel.getIsActive())
+//                TODO(gbondarenko): CreatedAt must be populated automatically.
 //                .createdAt((isNull(advertModel.getCreatedAt()) ? null :
 //                        new DateTime(advertModel.getCreatedAt(), DateTimeZone.UTC)))
                 .contacts(toDomain(advertModel.getContacts()))
@@ -160,6 +159,7 @@ public class AdvertConverter {
             return Advert.Settings.builder().build();
         }
         return Advert.Settings.builder()
+//                TODO(gbondarenko): AutoDeactivateAt must be populated automatically.
 //                .autoDeactivateAt(isNull(settings.getAutoDeactivateAt()) ? null :
 //                        new DateTime(settings.getAutoDeactivateAt(), DateTimeZone.UTC))
                 .build();
