@@ -1,15 +1,19 @@
 package jewel.api.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
+@ApiModel(description = "Represents Advert information.")
 public class AdvertModel {
     private String id;
     private String title;
     private String imageUrl;
     private String description;
+    @ApiModelProperty("Active advert is visible for everyone.")
     private Boolean isActive;
     private Long createdAt;
     private ContactsModel contacts;
@@ -20,6 +24,7 @@ public class AdvertModel {
 
     @Data
     @Builder
+    @ApiModel(description = "Contact information.")
     public static class ContactsModel {
         private String email;
         private String person;
@@ -38,12 +43,12 @@ public class AdvertModel {
     @Data
     @Builder
     public static class SettingsModel {
-        private Boolean isRemoved;
         private Long autoDeactivateAt;
     }
 
     @Data
     @Builder
+    @ApiModel(description = "Rates and currency.")
     public static class RateModel {
         private Boolean isContractual;
         private Integer fixedRate;
