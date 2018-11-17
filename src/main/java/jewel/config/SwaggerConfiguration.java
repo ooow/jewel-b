@@ -28,8 +28,8 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Jewel REST Application",
-                "Provides methods to manage adverts.",
+                "Jewel API",
+                "Application provides operations and storage for Jewel.",
                 "0.0.1-SNAPSHOT",
                 "Terms of service",
                 new Contact("jewel", "jewel.com", "jewel@mail.com"),

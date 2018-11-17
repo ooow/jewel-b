@@ -43,7 +43,7 @@ public class AdvertController {
     }
 
     @DeleteMapping("/{advertId}")
-    @ApiOperation("Delete advert using id.")
+    @ApiOperation("Delete advert by provided id.")
     void deleteAdvert(@PathVariable("advertId") String advertId) {
         Advert advert = advertRepository.findById(advertId).orElseThrow(NotFoundException::new);
         advertRepository.delete(advert);
