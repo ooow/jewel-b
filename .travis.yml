@@ -19,12 +19,12 @@ script:
   - docker build -t ${IMAGE} .
 
 after_script:
-  - docker login -u ${REGESTRY_USER} -p ${REGESTRY_PASSWORD} https://${REGESTRY_HOST}
-  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker tag ${IMAGE} ${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_PULL_REQUEST_BRANCH}; fi
-  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker push ${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_PULL_REQUEST_BRANCH}; fi
-  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker tag ${IMAGE} ${REGESTRY_HOST}/${PROJECT}/${IMAGE}:pr-${TRAVIS_PULL_REQUEST}; fi
-  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker push ${REGESTRY_HOST}/${PROJECT}/${IMAGE}:pr-${TRAVIS_PULL_REQUEST}; fi
-  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker tag ${IMAGE} ${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_COMMIT}; fi
-  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker push ${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_COMMIT}; fi
-  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker tag ${IMAGE} ${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_BRANCH}; fi
-  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker push ${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_BRANCH}; fi
+  - docker login -u "${REGESTRY_USER}" -p "${REGESTRY_PASSWORD}" "https://${REGESTRY_HOST}"
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker tag "${IMAGE}" "${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_PULL_REQUEST_BRANCH}"; fi
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker push "${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_PULL_REQUEST_BRANCH}"; fi
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker tag "${IMAGE}" "${REGESTRY_HOST}/${PROJECT}/${IMAGE}:pr-${TRAVIS_PULL_REQUEST}"; fi
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker push "${REGESTRY_HOST}/${PROJECT}/${IMAGE}:pr-${TRAVIS_PULL_REQUEST}"; fi
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker tag "${IMAGE}" "${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_COMMIT}"; fi
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker push "${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_COMMIT}"; fi
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker tag "${IMAGE}" "${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_BRANCH}"; fi
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker push "${REGESTRY_HOST}/${PROJECT}/${IMAGE}:${TRAVIS_BRANCH}"; fi
